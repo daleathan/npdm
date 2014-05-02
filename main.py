@@ -30,6 +30,26 @@ class Application:
 		  "FireproVoltron and copyright_2014 made this earth-shattering program.\nIt was a labor of love."
 		  )
 
+#Function to create the 8x8 chess board
+def createBoard():
+    #creates the window
+    w = Canvas(master, width=198, height=198)
+    w.pack()
+
+    #Makes the whole window white to later allow for alternating black and white
+    #squares
+    w.create_rectangle(0, 0, 200, 200, fill="white")
+
+    #Fills every other "square" on the board with black to make a grid.
+    for x in range(0, 200, 25):
+        w.create_rectangle(x, x, x + 25, x + 25, fill="black")
+        w.create_rectangle(x, x + 50, x + 25, x + 75, fill="black")
+        w.create_rectangle(x + 50, x, x + 75, x + 25, fill="black")
+        w.create_rectangle(x + 100, x, x + 125, x + 25, fill="black")
+        w.create_rectangle(x + 150, x, x + 175, x + 25, fill="black")
+        w.create_rectangle(x, x + 100, x + 25, x + 125, fill="black")
+        w.create_rectangle(x, x + 150, x + 25, x + 175, fill="black")
+
 root = Tk()
 
 app = Application(root)
