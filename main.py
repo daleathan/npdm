@@ -82,30 +82,30 @@ class Board:
 #<-- Decoding - Relates piece number to image number
    def decode_black_piece(self,piece_number):
      return {
-       110 : 0,
-       62 : 1,
-       64 : 2,
-       192 : 3,
-       256 : 4,
-       64 : 5,
-       62 : 6,
-       110 : 7,
-       22 : 8, # Pawn
+       110 : self.black_rook,
+       62 : self.black_knight,
+       64 : self.black_bishop,
+       192 : self.white_queen,
+       256 : self.black_king,
+       64 : self.black_bishop,
+       62 : self.black_knight,
+       110 : self.black_rook,
+       22 : self.black_pawn, # Pawn
      }
    def decode_white_piece(self,piece_number):
      return {
-       109 : 0,
-       61 : 1,
-       63 : 2,
-       191 : 3,
-       255 : 4,
-       63 : 5,
-       61 : 6,
-       109 : 7,
-       21 : 8, # Pawn
+       109 : self.white_rook,
+       61 : self.white_knight,
+       63 : self.white_bishop,
+       191 : self.white_queen,
+       255 : self.white_king,
+       63 : self.white_bishop,
+       61 : self.white_knight,
+       109 : self.white_rook,
+       21 : self.white_pawn, # Pawn
      }
 #-->
-#<-- Board functions: board_init, board_reset, and board_render TODO: Incomplete.
+#<-- Board functions: board_init and board_render TODO: Incomplete.
 #   # TODO: I didn't quite have time to make a bitboard, set it up, and use it. 
 #   def board_init:
 #     for inc_x in range(0,7):
