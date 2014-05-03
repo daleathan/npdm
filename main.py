@@ -50,9 +50,9 @@ black_king = 256
 #<-- Board class
 class Board:
    def x(self,n): # Tpls are 4 noobs.
-      return (n*25+12.5)
+      return (n*50+25)
    def y(self,n):
-      return (n*25+12.5)
+      return (n*50+25)
 #<-- Encoding - Relates image number to piece number
    def encode_black_piece(self,piece_number):
      return {
@@ -130,35 +130,34 @@ class Board:
    def __init__(self,master):
 # Creates the canvas on which we render the chessboard.
       self.bit_board = [[0 for inc in range(7)] for inc in range(7)]
-      self.canvas = Canvas(master, width=198, height=198)
+      self.canvas = Canvas(master, width=396, height=396)
 
 # Draws a "black" rectangle in the canvas.
-      self.canvas.create_rectangle(0, 0, 200, 200, fill="sienna")
+      self.canvas.create_rectangle(0, 0, 400, 400, fill="sienna")
 #<-- Fills every other "square" on the board with "white" to make a grid. Colors changed for visibility of pieces aand
 # so the white side faces the player 
-      for x in range(0, 200, 25): 
-        self.canvas.create_rectangle(x, x, x + 25, x + 25, fill="deep sky blue")
-        self.canvas.create_rectangle(x, x + 50, x + 25, x + 75, fill="deep sky blue")
-        self.canvas.create_rectangle(x + 50, x, x + 75, x + 25, fill="deep sky blue")
-        self.canvas.create_rectangle(x + 100, x, x + 125, x + 25, fill="deep sky blue")
-        self.canvas.create_rectangle(x + 150, x, x + 175, x + 25, fill="deep sky blue")
-        self.canvas.create_rectangle(x, x + 100, x + 25, x + 125, fill="deep sky blue")
-        self.canvas.create_rectangle(x, x + 150, x + 25, x + 175, fill="deep sky blue")
+      for x in range(0, 400, 50): 
+        self.canvas.create_rectangle(x, x, x + 50, x + 50, fill="deep sky blue")
+        self.canvas.create_rectangle(x, x + 100, x + 50, x + 150, fill="deep sky blue")
+        self.canvas.create_rectangle(x + 100, x, x + 150, x + 50, fill="deep sky blue")
+        self.canvas.create_rectangle(x + 200, x, x + 250, x + 50, fill="deep sky blue")
+        self.canvas.create_rectangle(x + 300, x, x + 350, x + 50, fill="deep sky blue")
+        self.canvas.create_rectangle(x, x + 200, x + 50, x + 250, fill="deep sky blue")
+        self.canvas.create_rectangle(x, x + 300, x + 50, x + 350, fill="deep sky blue")
 #--> 
-#<-- Bitmap loading and rendering. TODO: We need to resize the board, because 25 % 2 = 1, so pieces are off by half a
-# pixel. It's noticeable.
-      self.white_rook = BitmapImage(file="./bitmaps/r25s.bm",foreground="white")
-      self.white_knight = BitmapImage(file="./bitmaps/n25s.bm",foreground="white")
-      self.white_bishop = BitmapImage(file="./bitmaps/b25s.bm",foreground="white")
-      self.white_queen = BitmapImage(file="./bitmaps/q25s.bm",foreground="white")
-      self.white_king = BitmapImage(file="./bitmaps/k25s.bm",foreground="white")
-      self.white_pawn = BitmapImage(file="./bitmaps/p25s.bm",foreground="white") # My fingers are tired. :(
-      self.black_rook = BitmapImage(file="./bitmaps/r25s.bm",foreground="black")
-      self.black_knight = BitmapImage(file="./bitmaps/n25s.bm",foreground="black")
-      self.black_bishop = BitmapImage(file="./bitmaps/b25s.bm",foreground="black")
-      self.black_queen = BitmapImage(file="./bitmaps/q25s.bm",foreground="black")
-      self.black_king = BitmapImage(file="./bitmaps/k25s.bm",foreground="black")
-      self.black_pawn = BitmapImage(file="./bitmaps/p25s.bm",foreground="black")
+#<-- Bitmap loading and rendering. # TODO: Find not butt-ugly colors.
+      self.white_rook = BitmapImage(file="./bitmaps/r49s.bm",foreground="white")
+      self.white_knight = BitmapImage(file="./bitmaps/n49s.bm",foreground="white")
+      self.white_bishop = BitmapImage(file="./bitmaps/b49s.bm",foreground="white")
+      self.white_queen = BitmapImage(file="./bitmaps/q49s.bm",foreground="white")
+      self.white_king = BitmapImage(file="./bitmaps/k49s.bm",foreground="white")
+      self.white_pawn = BitmapImage(file="./bitmaps/p49s.bm",foreground="white") # My fingers are tired. :(
+      self.black_rook = BitmapImage(file="./bitmaps/r49s.bm",foreground="black")
+      self.black_knight = BitmapImage(file="./bitmaps/n49s.bm",foreground="black")
+      self.black_bishop = BitmapImage(file="./bitmaps/b49s.bm",foreground="black")
+      self.black_queen = BitmapImage(file="./bitmaps/q49s.bm",foreground="black")
+      self.black_king = BitmapImage(file="./bitmaps/k49s.bm",foreground="black")
+      self.black_pawn = BitmapImage(file="./bitmaps/p49s.bm",foreground="black")
 
       # If these don't show up later after changing the canvas, we need to keep a reference here because Python may be
       # collecting them as garbage.
