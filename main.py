@@ -107,26 +107,25 @@ class Board:
 #-->
 #<-- Board functions: board_init and board_render TODO: Incomplete.
 #   # TODO: I didn't quite have time to make a bitboard, set it up, and use it. 
-#   def board_init:
-#     for inc_x in range(0,7):
-#       self.bit_board[inc_x][6] = white_pawn
-#       self.bit_board[inc_x][1] = black_pawn
-#     for inc_y in range(0,7):
-#       self.bit_board[0][inc_y] = encode_black_piece(inc_y)
-#       self.bit_board[7][inc_y] = encode_white_piece(inc_y)
-#   def board_render:
+   def board_init(self):
+     for inc_x in range(0,7):
+       self.bit_board[inc_x][6] = white_pawn
+       self.bit_board[inc_x][1] = black_pawn
+     for inc_y in range(0,7):
+       self.bit_board[0][inc_y] = encode_black_piece(inc_y)
+       self.bit_board[7][inc_y] = encode_white_piece(inc_y)
+#   def board_render(self,bit_board):
 #      for inc_x in range(0,7):
 #        for inc_y in range(0,7):
 #	  self.canvas.create_image(
 #	    self.x(inc_x), self.y(inc_y),
 #	    image=self.decode_piece(self.bit_board[inc_x][inc_y])
-#      
-#
 #-->
 #<-- constructor
    def __init__(self,master):
 # Creates the canvas on which we render the chessboard.
       self.bit_board = [[0 for inc in range(7)] for inc in range(7)]
+      self.board_init
       self.canvas = Canvas(master, width=396, height=396)
 
 # Draws a "black" rectangle in the canvas.
