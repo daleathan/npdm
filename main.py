@@ -107,19 +107,20 @@ class Board:
 #-->
 #<-- Board functions: board_init and board_render TODO: Incomplete.
 #   # TODO: I didn't quite have time to make a bitboard, set it up, and use it. 
-   def board_init(self):
-     for inc_x in range(0,7):
-       self.bit_board[inc_x][6] = white_pawn
-       self.bit_board[inc_x][1] = black_pawn
-     for inc_y in range(0,7):
-       self.bit_board[0][inc_y] = encode_black_piece(inc_y)
-       self.bit_board[7][inc_y] = encode_white_piece(inc_y)
+#   def board_init(self):
+#     for inc_x in range(0,7):
+#       self.bit_board[inc_x][6] = white_pawn
+#       self.bit_board[inc_x][1] = black_pawn
+#     for inc_y in range(0,7):
+#       self.bit_board[0][inc_y] = encode_black_piece(inc_y)
+#       self.bit_board[7][inc_y] = encode_white_piece(inc_y)
 #   def board_render(self,bit_board):
 #      for inc_x in range(0,7):
 #        for inc_y in range(0,7):
 #	  self.canvas.create_image(
-#	    self.x(inc_x), self.y(inc_y),
-#	    image=self.decode_piece(self.bit_board[inc_x][inc_y])
+#          self.x(inc_x), self.y(inc_y),
+#          image=self.decode_piece(self.bit_board[inc_x][inc_y])
+#        )
 #-->
 #<-- constructor
    def __init__(self,master):
@@ -141,43 +142,44 @@ class Board:
         self.canvas.create_rectangle(x, x + 200, x + 50, x + 250, fill="deep sky blue")
         self.canvas.create_rectangle(x, x + 300, x + 50, x + 350, fill="deep sky blue")
 #--> 
+      self.board_render(self.bit_board)
 #<-- Bitmap loading and rendering. # TODO: Find not butt-ugly colors.
-      self.white_rook = BitmapImage(file="./bitmaps/r49s.bm",foreground="white")
-      self.white_knight = BitmapImage(file="./bitmaps/n49s.bm",foreground="white")
-      self.white_bishop = BitmapImage(file="./bitmaps/b49s.bm",foreground="white")
-      self.white_queen = BitmapImage(file="./bitmaps/q49s.bm",foreground="white")
-      self.white_king = BitmapImage(file="./bitmaps/k49s.bm",foreground="white")
-      self.white_pawn = BitmapImage(file="./bitmaps/p49s.bm",foreground="white") # My fingers are tired. :(
-      self.black_rook = BitmapImage(file="./bitmaps/r49s.bm",foreground="black")
-      self.black_knight = BitmapImage(file="./bitmaps/n49s.bm",foreground="black")
-      self.black_bishop = BitmapImage(file="./bitmaps/b49s.bm",foreground="black")
-      self.black_queen = BitmapImage(file="./bitmaps/q49s.bm",foreground="black")
-      self.black_king = BitmapImage(file="./bitmaps/k49s.bm",foreground="black")
-      self.black_pawn = BitmapImage(file="./bitmaps/p49s.bm",foreground="black")
-
-      # If these don't show up later after changing the canvas, we need to keep a reference here because Python may be
-      # collecting them as garbage.
-      self.canvas.create_image(self.x(7),self.y(7),image=self.white_rook)
-      self.canvas.create_image(self.x(0),self.y(7),image=self.white_rook)
-      self.canvas.create_image(self.x(1),self.y(7),image=self.white_knight)
-      self.canvas.create_image(self.x(6),self.y(7),image=self.white_knight)
-      self.canvas.create_image(self.x(2),self.y(7),image=self.white_bishop)
-      self.canvas.create_image(self.x(5),self.y(7),image=self.white_bishop)
-      self.canvas.create_image(self.x(3),self.y(7),image=self.white_queen)
-      self.canvas.create_image(self.x(4),self.y(7),image=self.white_king)
-      for inc in range(0, 8):
-         self.canvas.create_image(self.x(inc),self.y(6),image=self.white_pawn)
-
-      self.canvas.create_image(self.x(7),self.y(0),image=self.black_rook)
-      self.canvas.create_image(self.x(0),self.y(0),image=self.black_rook)
-      self.canvas.create_image(self.x(1),self.y(0),image=self.black_knight)
-      self.canvas.create_image(self.x(6),self.y(0),image=self.black_knight)
-      self.canvas.create_image(self.x(2),self.y(0),image=self.black_bishop)
-      self.canvas.create_image(self.x(5),self.y(0),image=self.black_bishop)
-      self.canvas.create_image(self.x(3),self.y(0),image=self.black_queen)
-      self.canvas.create_image(self.x(4),self.y(0),image=self.black_king)
-      for inc in range(0, 8):
-         self.canvas.create_image(self.x(inc),self.y(1),image=self.black_pawn)
+#      self.white_rook = BitmapImage(file="./bitmaps/r49s.bm",foreground="white")
+#      self.white_knight = BitmapImage(file="./bitmaps/n49s.bm",foreground="white")
+#      self.white_bishop = BitmapImage(file="./bitmaps/b49s.bm",foreground="white")
+#      self.white_queen = BitmapImage(file="./bitmaps/q49s.bm",foreground="white")
+#      self.white_king = BitmapImage(file="./bitmaps/k49s.bm",foreground="white")
+#      self.white_pawn = BitmapImage(file="./bitmaps/p49s.bm",foreground="white") # My fingers are tired. :(
+#      self.black_rook = BitmapImage(file="./bitmaps/r49s.bm",foreground="black")
+#      self.black_knight = BitmapImage(file="./bitmaps/n49s.bm",foreground="black")
+#      self.black_bishop = BitmapImage(file="./bitmaps/b49s.bm",foreground="black")
+#      self.black_queen = BitmapImage(file="./bitmaps/q49s.bm",foreground="black")
+#      self.black_king = BitmapImage(file="./bitmaps/k49s.bm",foreground="black")
+#      self.black_pawn = BitmapImage(file="./bitmaps/p49s.bm",foreground="black")
+#
+#      # If these don't show up later after changing the canvas, we need to keep a reference here because Python may be
+#      # collecting them as garbage.
+#      self.canvas.create_image(self.x(7),self.y(7),image=self.white_rook)
+#      self.canvas.create_image(self.x(0),self.y(7),image=self.white_rook)
+#      self.canvas.create_image(self.x(1),self.y(7),image=self.white_knight)
+#      self.canvas.create_image(self.x(6),self.y(7),image=self.white_knight)
+#      self.canvas.create_image(self.x(2),self.y(7),image=self.white_bishop)
+#      self.canvas.create_image(self.x(5),self.y(7),image=self.white_bishop)
+#      self.canvas.create_image(self.x(3),self.y(7),image=self.white_queen)
+#      self.canvas.create_image(self.x(4),self.y(7),image=self.white_king)
+#      for inc in range(0, 8):
+#         self.canvas.create_image(self.x(inc),self.y(6),image=self.white_pawn)
+#
+#      self.canvas.create_image(self.x(7),self.y(0),image=self.black_rook)
+#      self.canvas.create_image(self.x(0),self.y(0),image=self.black_rook)
+#      self.canvas.create_image(self.x(1),self.y(0),image=self.black_knight)
+#      self.canvas.create_image(self.x(6),self.y(0),image=self.black_knight)
+#      self.canvas.create_image(self.x(2),self.y(0),image=self.black_bishop)
+#      self.canvas.create_image(self.x(5),self.y(0),image=self.black_bishop)
+#      self.canvas.create_image(self.x(3),self.y(0),image=self.black_queen)
+#      self.canvas.create_image(self.x(4),self.y(0),image=self.black_king)
+#      for inc in range(0, 8):
+#         self.canvas.create_image(self.x(inc),self.y(1),image=self.black_pawn)
 #-->
 #-->
 #-->
