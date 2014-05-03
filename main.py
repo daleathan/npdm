@@ -294,6 +294,7 @@ from tkinter import messagebox
 #-->
 #<-- Bootstrapping
 root = Tk()
+root.wm_title("npdm.chess")
 
 app = Application(root)
 
