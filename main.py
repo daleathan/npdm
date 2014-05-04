@@ -53,7 +53,7 @@ class Board:
       return (n*50+25)
    def y(self,n):
       return (n*50+25)
-#<-- Board functions: board_init and board_render TODO: Incomplete.
+#<-- Board functions: board_init/render
    # TODO: I didn't quite have time to make a bitboard, set it up, and use it. 
    def board_init(self):
      for inc_x in range(0,8):
@@ -75,7 +75,7 @@ class Board:
      self.bit_board[5][7] = white_bishop
      self.bit_board[3][7] = white_queen
      self.bit_board[4][7] = white_king
-   def board_render(self,bit_board):
+   def render(self):
       for inc_x in range(0,8):
         for inc_y in range(0,8):
           if self.bit_board[inc_x][inc_y] != 0 :
@@ -104,6 +104,7 @@ class Board:
         self.canvas.create_rectangle(x, x + 200, x + 50, x + 250, fill="deep sky blue")
         self.canvas.create_rectangle(x, x + 300, x + 50, x + 350, fill="deep sky blue")
 #--> 
+      self.canvas.pack()
 #<-- Bitmap loading and rendering. # TODO: Find not butt-ugly colors.
       self.white_rook = BitmapImage(file="./bitmaps/r49s.bm",foreground="white")
       self.white_knight = BitmapImage(file="./bitmaps/n49s.bm",foreground="white")
@@ -139,7 +140,6 @@ class Board:
         21 : self.white_pawn, # Pawn
       }
 #-->
-      self.board_render(self.bit_board)
 #-->
 #-->
 #-->
@@ -171,7 +171,7 @@ class Preferences:
    def __del__(self):
       print("Preferences.__del__: Not yet implemented")
 #-->
-#<-- Application class - TODO: Resize bitmaps, find the center of squares, place pieces to set the board.
+#<-- Application class
 class Application:
 #<-- help_window
    def help_window(self):
@@ -235,9 +235,8 @@ class Application:
 #-->
 #<-- Main constructor
    def __init__(self, master):
-     
       self.board = Board(master)
-      self.board.canvas.pack() # I'm maybe going overboard with OO, but they were convincing!
+      self.board.render()
 
       self.history = History()
       self.preferences = Preferences()
