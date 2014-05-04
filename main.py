@@ -53,80 +53,42 @@ class Board:
       return (n*50+25)
    def y(self,n):
       return (n*50+25)
-#<-- Encoding - Relates image number to piece number
-   def encode_black_piece(self,piece_number):
-     return {
-       0 : 110,
-       1 : 62,
-       2 : 64,
-       3 : 192,
-       4 : 256,
-       5 : 64,
-       6 : 62,
-       7 : 110,
-       8 : 22, # Pawn
-     }
-   def encode_white_piece(self,piece_number):
-     return {
-       0 : 109,
-       1 : 61,
-       2 : 63,
-       3 : 191,
-       4 : 255,
-       5 : 63,
-       6 : 61,
-       7 : 110,
-       8 : 21, # Pawn
-     }
-#-->
-#<-- Decoding - Relates piece number to image number
-   def decode_black_piece(self,piece_number):
-     return {
-       110 : self.black_rook,
-       62 : self.black_knight,
-       64 : self.black_bishop,
-       192 : self.white_queen,
-       256 : self.black_king,
-       64 : self.black_bishop,
-       62 : self.black_knight,
-       110 : self.black_rook,
-       22 : self.black_pawn, # Pawn
-     }
-   def decode_white_piece(self,piece_number):
-     return {
-       109 : self.white_rook,
-       61 : self.white_knight,
-       63 : self.white_bishop,
-       191 : self.white_queen,
-       255 : self.white_king,
-       63 : self.white_bishop,
-       61 : self.white_knight,
-       109 : self.white_rook,
-       21 : self.white_pawn, # Pawn
-     }
-#-->
 #<-- Board functions: board_init and board_render TODO: Incomplete.
-#   # TODO: I didn't quite have time to make a bitboard, set it up, and use it. 
-#   def board_init(self):
-#     for inc_x in range(0,7):
-#       self.bit_board[inc_x][6] = white_pawn
-#       self.bit_board[inc_x][1] = black_pawn
-#     for inc_y in range(0,7):
-#       self.bit_board[0][inc_y] = encode_black_piece(inc_y)
-#       self.bit_board[7][inc_y] = encode_white_piece(inc_y)
-#   def board_render(self,bit_board):
-#      for inc_x in range(0,7):
-#        for inc_y in range(0,7):
-#	  self.canvas.create_image(
-#          self.x(inc_x), self.y(inc_y),
-#          image=self.decode_piece(self.bit_board[inc_x][inc_y])
-#        )
+   # TODO: I didn't quite have time to make a bitboard, set it up, and use it. 
+   def board_init(self):
+     for inc_x in range(0,8):
+       self.bit_board[inc_x][6] = white_pawn
+       self.bit_board[inc_x][1] = black_pawn
+     self.bit_board[0][0] = black_rook
+     self.bit_board[7][0] = black_rook
+     self.bit_board[1][0] = black_knight
+     self.bit_board[6][0] = black_knight
+     self.bit_board[2][0] = black_bishop
+     self.bit_board[5][0] = black_bishop
+     self.bit_board[3][0] = black_queen
+     self.bit_board[4][0] = black_king
+     self.bit_board[0][7] = white_rook
+     self.bit_board[7][7] = white_rook
+     self.bit_board[1][7] = white_knight
+     self.bit_board[6][7] = white_knight
+     self.bit_board[2][7] = white_bishop
+     self.bit_board[5][7] = white_bishop
+     self.bit_board[3][7] = white_queen
+     self.bit_board[4][7] = white_king
+   def board_render(self,bit_board):
+      for inc_x in range(0,8):
+        for inc_y in range(0,8):
+          if self.bit_board[inc_x][inc_y] != 0 :
+            self.canvas.create_image(
+              self.x(inc_x), self.y(inc_y),
+              image=self.decode_piece[self.bit_board[inc_x][inc_y]]
+        )
 #-->
 #<-- constructor
    def __init__(self,master):
 # Creates the canvas on which we render the chessboard.
-      self.bit_board = [[0 for inc in range(7)] for inc in range(7)]
-      self.board_init
+      self.bit_board = [[0 for inc in range(8)] for inc in range(8)]
+      self.board_init()
       self.canvas = Canvas(master, width=396, height=396)
 
 # Draws a "black" rectangle in the canvas.
@@ -142,44 +104,42 @@ class Board:
         self.canvas.create_rectangle(x, x + 200, x + 50, x + 250, fill="deep sky blue")
         self.canvas.create_rectangle(x, x + 300, x + 50, x + 350, fill="deep sky blue")
 #--> 
-      self.board_render(self.bit_board)
 #<-- Bitmap loading and rendering. # TODO: Find not butt-ugly colors.
-#      self.white_rook = BitmapImage(file="./bitmaps/r49s.bm",foreground="white")
-#      self.white_knight = BitmapImage(file="./bitmaps/n49s.bm",foreground="white")
-#      self.white_bishop = BitmapImage(file="./bitmaps/b49s.bm",foreground="white")
-#      self.white_queen = BitmapImage(file="./bitmaps/q49s.bm",foreground="white")
-#      self.white_king = BitmapImage(file="./bitmaps/k49s.bm",foreground="white")
-#      self.white_pawn = BitmapImage(file="./bitmaps/p49s.bm",foreground="white") # My fingers are tired. :(
-#      self.black_rook = BitmapImage(file="./bitmaps/r49s.bm",foreground="black")
-#      self.black_knight = BitmapImage(file="./bitmaps/n49s.bm",foreground="black")
-#      self.black_bishop = BitmapImage(file="./bitmaps/b49s.bm",foreground="black")
-#      self.black_queen = BitmapImage(file="./bitmaps/q49s.bm",foreground="black")
-#      self.black_king = BitmapImage(file="./bitmaps/k49s.bm",foreground="black")
-#      self.black_pawn = BitmapImage(file="./bitmaps/p49s.bm",foreground="black")
-#
-#      # If these don't show up later after changing the canvas, we need to keep a reference here because Python may be
-#      # collecting them as garbage.
-#      self.canvas.create_image(self.x(7),self.y(7),image=self.white_rook)
-#      self.canvas.create_image(self.x(0),self.y(7),image=self.white_rook)
-#      self.canvas.create_image(self.x(1),self.y(7),image=self.white_knight)
-#      self.canvas.create_image(self.x(6),self.y(7),image=self.white_knight)
-#      self.canvas.create_image(self.x(2),self.y(7),image=self.white_bishop)
-#      self.canvas.create_image(self.x(5),self.y(7),image=self.white_bishop)
-#      self.canvas.create_image(self.x(3),self.y(7),image=self.white_queen)
-#      self.canvas.create_image(self.x(4),self.y(7),image=self.white_king)
-#      for inc in range(0, 8):
-#         self.canvas.create_image(self.x(inc),self.y(6),image=self.white_pawn)
-#
-#      self.canvas.create_image(self.x(7),self.y(0),image=self.black_rook)
-#      self.canvas.create_image(self.x(0),self.y(0),image=self.black_rook)
-#      self.canvas.create_image(self.x(1),self.y(0),image=self.black_knight)
-#      self.canvas.create_image(self.x(6),self.y(0),image=self.black_knight)
-#      self.canvas.create_image(self.x(2),self.y(0),image=self.black_bishop)
-#      self.canvas.create_image(self.x(5),self.y(0),image=self.black_bishop)
-#      self.canvas.create_image(self.x(3),self.y(0),image=self.black_queen)
-#      self.canvas.create_image(self.x(4),self.y(0),image=self.black_king)
-#      for inc in range(0, 8):
-#         self.canvas.create_image(self.x(inc),self.y(1),image=self.black_pawn)
+      self.white_rook = BitmapImage(file="./bitmaps/r49s.bm",foreground="white")
+      self.white_knight = BitmapImage(file="./bitmaps/n49s.bm",foreground="white")
+      self.white_bishop = BitmapImage(file="./bitmaps/b49s.bm",foreground="white")
+      self.white_queen = BitmapImage(file="./bitmaps/q49s.bm",foreground="white")
+      self.white_king = BitmapImage(file="./bitmaps/k49s.bm",foreground="white")
+      self.white_pawn = BitmapImage(file="./bitmaps/p49s.bm",foreground="white") # My fingers are tired. :(
+      self.black_rook = BitmapImage(file="./bitmaps/r49s.bm",foreground="black")
+      self.black_knight = BitmapImage(file="./bitmaps/n49s.bm",foreground="black")
+      self.black_bishop = BitmapImage(file="./bitmaps/b49s.bm",foreground="black")
+      self.black_queen = BitmapImage(file="./bitmaps/q49s.bm",foreground="black")
+      self.black_king = BitmapImage(file="./bitmaps/k49s.bm",foreground="black")
+      self.black_pawn = BitmapImage(file="./bitmaps/p49s.bm",foreground="black")
+#<-- Decodes piece numbers/values to BitmapImage addresses
+      self.decode_piece = {
+        110 : self.black_rook,
+        62 : self.black_knight,
+        64 : self.black_bishop,
+        192 : self.black_queen,
+        256 : self.black_king,
+        64 : self.black_bishop,
+        62 : self.black_knight,
+        110 : self.black_rook,
+        22 : self.black_pawn, # Pawn
+        109 : self.white_rook,
+        61 : self.white_knight,
+        63 : self.white_bishop,
+        191 : self.white_queen,
+        255 : self.white_king,
+        63 : self.white_bishop,
+        61 : self.white_knight,
+        109 : self.white_rook,
+        21 : self.white_pawn, # Pawn
+      }
+#-->
+      self.board_render(self.bit_board)
 #-->
 #-->
 #-->
@@ -297,5 +257,5 @@ root.wm_title("npdm.chess")
 app = Application(root)
 
 root.mainloop()
-root.destroy()
+#root.destroy() # Complains annoyingly, though it's supposedly proper form to put this here.
 #--> 
